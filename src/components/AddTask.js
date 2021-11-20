@@ -22,10 +22,10 @@ export default function AddTask({ onSubmit }) {
 
     const handleSubmit = (event) => {
         event.preventDefault()
-        onSubmit(task)
         setTask(
             { ...task, title: "", description: "" }
         )
+        onSubmit(task)
     }
     return (
         <form className="task-form">

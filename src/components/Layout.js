@@ -1,18 +1,35 @@
-export default function Layout({ children }) {
-    return (
-        <div>
-            <header className="header">
-                <h1>Task Manager</h1>
-                <nav className="nav-container">
-                    <ul className="nav-list">
-                        <li className="nav-item"><button>Pending</button></li>
-                        <li className="nav-item"><button>Completed</button></li>
-                    </ul>
-                </nav>
-            </header>
-            <main className="main-container">
-                {children}
-            </main>
-        </div>
-    )
+import Header from "./Header";
+import Footer from "./Footer";
+import TasksManager from "./TasksManager";
+import AddTask from "./AddTask";
+import PendingTasks from "./PendingTasks";
+import CompleteTasks from "./CompleteTasks";
+
+export default function Layout() {
+  return (
+    <>
+      <Header />
+      <main className="main-container">
+
+        <TasksManager
+          render={(tasks, method) => (
+            <>
+              <AddTask onSubmit={method.addTask} />
+              <PendingTasks
+                tasks={tasks.filter((task) => task.completed === false)}
+                onDelete={method.deleteTask}
+                onComplete={method.completeTask}
+              />
+              <CompleteTasks
+                tasks={tasks.filter((task) => task.completed === true)}
+                onDelete={method.deleteTask}
+                onComplete={method.completeTask}
+              />
+            </>
+          )}
+        />
+      </main>
+      <Footer />
+    </>
+  );
 }

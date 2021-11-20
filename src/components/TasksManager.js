@@ -1,9 +1,6 @@
-import AddTask from "./AddTask";
-import PendingTasks from "./pendingTasks";
-import CompletedTasks from "./completedTasks";
 import { useState } from "react";
 
-export default function TasksManager() {
+export default function TasksManager({ render }) {
   const [tasks, setTasks] = useState([
     {
       id: 1,
@@ -16,7 +13,7 @@ export default function TasksManager() {
       id: 2,
       title: "Wash Clothes",
       description: "Make them clean",
-      completed: false,
+      completed: true,
       date: new Date(2010, 11, 10).toDateString(),
     },
     {
@@ -28,14 +25,17 @@ export default function TasksManager() {
     },
   ]);
 
-  const [completedTasks, setCompletedTasks] = useState([]);
-
   const addTask = (task) => {
     setTasks([task, ...tasks]);
   };
 
   const deleteTask = (id) => {
-    setTasks(tasks.filter((task) => task.id !== id));
+    setTasks(
+      tasks.filter((task) => {
+        return task.id !== id;
+      })
+    );
+    console.log(`delete ${tasks.length}`);
   };
 
   const completeTask = (id) => {
@@ -44,21 +44,10 @@ export default function TasksManager() {
         task.id === id ? { ...task, completed: !task.completed } : task
       )
     );
+    console.log(`complete ${tasks}`);
   };
 
-  return (
-    <div>
-      <AddTask onSubmit={addTask} />
-      <PendingTasks
-        tasks={tasks.filter((task) => task.completed === false)}
-        onDelete={deleteTask}
-        onComplete={completeTask}
-      />
-      <CompletedTasks
-        tasks={tasks.filter((task) => task.completed === true)}
-        onDelete={deleteTask}
-        onComplete={completeTask}
-      />
-    </div>
-  );
+  const method = { addTask, deleteTask, completeTask };
+
+  return render(tasks, method);
 }

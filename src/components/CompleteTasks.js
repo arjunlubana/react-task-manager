@@ -1,7 +1,7 @@
 import TasksList from "./TasksList"
 import NoTasks from "./NoTasks"
 
-export default function CompletedTasks({ tasks, onDelete, onComplete }){
+export default function CompleteTasks({ tasks, onDelete, onComplete }){
     return (
         <div>
             <h3 className="subtitle">Completed Tasks</h3>

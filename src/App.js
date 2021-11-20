@@ -1,15 +1,14 @@
-import TasksManager from './components/TasksManager'
-import Layout from './components/Layout'
-import './App.css'
+import Layout from "./components/Layout";
+import { BrowserRouter } from "react-router-dom";
+import "./App.css";
 
 export default function App() {
   return (
-    <div>
-      <Layout>
-        <TasksManager />
-      </Layout>
-
-    </div>
+    <BrowserRouter>
+      <div>
+        <Layout>
+        </Layout>
+      </div>
+    </BrowserRouter>
   );
 }
-
