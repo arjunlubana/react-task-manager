@@ -5,7 +5,7 @@ import "./App.css";
 export default function App() {
   return (
     <BrowserRouter>
-      <div>
+      <div className="container">
         <Layout>
         </Layout>
       </div>

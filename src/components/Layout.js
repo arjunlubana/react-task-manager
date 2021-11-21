@@ -9,22 +9,23 @@ export default function Layout() {
   return (
     <>
       <Header />
-      <main className="main-container">
-
+      <main>
         <TasksManager
           render={(tasks, method) => (
             <>
               <AddTask onSubmit={method.addTask} />
-              <PendingTasks
-                tasks={tasks.filter((task) => task.completed === false)}
-                onDelete={method.deleteTask}
-                onComplete={method.completeTask}
-              />
-              <CompleteTasks
-                tasks={tasks.filter((task) => task.completed === true)}
-                onDelete={method.deleteTask}
-                onComplete={method.completeTask}
-              />
+              <div className="tasks-category">
+                <PendingTasks
+                  tasks={tasks.filter((task) => task.completed === false)}
+                  onDelete={method.deleteTask}
+                  onComplete={method.completeTask}
+                />
+                <CompleteTasks
+                  tasks={tasks.filter((task) => task.completed === true)}
+                  onDelete={method.deleteTask}
+                  onComplete={method.completeTask}
+                />
+              </div>
             </>
           )}
         />

@@ -1,7 +1,8 @@
 export default function Footer(){
     return (
-        <footer>
-            Copyright @copy 2021
+        <footer className="footer">
+            © Arjun Lubana
+            <div>2021</div>
         </footer>
     )
 }
