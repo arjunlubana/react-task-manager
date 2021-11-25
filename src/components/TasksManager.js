@@ -1,35 +1,23 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { addTaskLocal, getTasksLocal, deleteTaskLocal, editTaskLocal } from "../models/data";
 
 export default function TasksManager({ render }) {
-  const [tasks, setTasks] = useState([
-    {
-      id: 1,
-      title: "Wash Dishes",
-      description: "Make them clean",
-      completed: false,
-      date: new Date(2010, 11, 10).toDateString(),
-    },
-    {
-      id: 2,
-      title: "Wash Clothes",
-      description: "Make them clean",
-      completed: true,
-      date: new Date(2010, 11, 10).toDateString(),
-    },
-    {
-      id: 3,
-      title: "Wash Face",
-      description: "Make them clean",
-      completed: false,
-      date: new Date(2010, 11, 10).toDateString(),
-    },
-  ]);
+
+  const [tasks, setTasks] = useState([]);
+
+  useEffect(() => {
+    getTasksLocal.then((data) => {
+      setTasks(data)
+    })
+  })
 
   const addTask = (task) => {
+    addTaskLocal(task);
     setTasks([task, ...tasks]);
   };
 
   const deleteTask = (id) => {
+    deleteTaskLocal(id)
     setTasks(
       tasks.filter((task) => {
         return task.id !== id;
@@ -49,5 +37,9 @@ export default function TasksManager({ render }) {
 
   const method = { addTask, deleteTask, completeTask };
 
+  // Using render props to render the following dynamically:
+  // - AddTask form,
+  // - Pending tasks and
+  // - Completed tasks
   return render(tasks, method);
 }
